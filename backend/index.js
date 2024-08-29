@@ -1,4 +1,8 @@
 import express from "express";
+import { mongoDbURL, PORT } from "./config.js";
+import mongoose from 'mongoose';
+import cors from 'cors';
+
 const app = express();
 
 app.get('/', (request, response) => {
@@ -6,9 +10,6 @@ app.get('/', (request, response) => {
   return response.status(234).send("Hello world")
 });
 
-import { mongoDbURL, PORT } from "./config.js";
-
-import mongoose from 'mongoose';
 mongoose.connect(mongoDbURL)
     .then(()=> {
         console.log('App connected to database')
@@ -30,7 +31,5 @@ mongoose.connect(mongoDbURL)
         return response.status(234).send('Welcome')
     });
     app.use('/api/todos', todosRoute);
-
-import cors from 'cors';
 
 app.use(cors());
